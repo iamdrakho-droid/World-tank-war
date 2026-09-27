@@ -1,1 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#07120d">
+<title>VESTRA — Digital Investment Platform</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --bg:#06100b;
+  --panel:#0b1911;
+  --panel2:#102218;
+  --green:#19d477;
+  --green2:#0fa95c;
+  --gold:#d8b35a;
+  --text:#f3f7f4;
+  --muted:#8b9c92;
+  --border:rgba(255,255,255,.08);
+  --danger:#ff5964;
+  --blue:#4da3ff;
+}
+
+body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(25,212,119,.14),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  min-height:100vh;
+  padding-bottom:88px;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:620px;
+  margin:auto;
+}
+
+/* HEADER */
+.header{
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(6,16,11,.86);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#1fe27d,#087b43);
+  box-shadow:0 0 22px rgba(25,212,119,.22);
+  font-weight:900;
+  color:#03130a;
+}
+
+.brand strong{
+  font-size:17px;
+  letter-spacing:1.5px;
+}
+
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:1.5px;
+  margin-top:2px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon-btn{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:white;
+  position:relative;
+}
+
+.dot{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#ff4f5c;
+  right:8px;
+  top:7px;
+}
+
+/* PAGES */
+.page{
+  display:none;
+  padding:18px;
+  animation:fade .2s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* HERO */
+.hero{
+  margin-top:5px;
+  padding:23px;
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(25,212,119,.18),transparent 32%),
+    linear-gradient(145deg,#10251a,#09140e);
+  border:1px solid rgba(25,212,119,.13);
+  overflow:hidden;
+  position:relative;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-70px;
+  bottom:-80px;
+  border-radius:50%;
+  border:1px solid rgba(216,179,90,.15);
+}
+
+.eyebrow{
+  color:var(--green);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin-top:9px;
+  font-size:29px;
+  line-height:1.15;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:8px;
+  line-height:1.5;
+}
+
+/* BALANCE */
+.balance-card{
+  margin-top:15px;
+  padding:20px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#0d2116,#09150e);
+  border:1px solid var(--border);
+}
+
+.balance-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.label{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.currency{
+  font-size:11px;
+  color:var(--gold);
+  font-weight:800;
+}
+
+.balance{
+  font-size:31px;
+  font-weight:850;
+  letter-spacing:-1px;
+  margin-top:8px;
+}
+
+.balance-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:17px;
+}
+
+.btn{
+  min-height:45px;
+  border-radius:13px;
+  padding:0 15px;
+  font-weight:750;
+  font-size:13px;
+  transition:.15s;
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#20df80,#0da85b);
+  color:#021108;
+}
+
+.btn-secondary{
+  background:#13271b;
+  color:#dce9e1;
+  border:1px solid var(--border);
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:14px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:14px 11px;
+  border-radius:17px;
+}
+
+.stat small{
+  color:var(--muted);
+  font-size:9px;
+}
+
+.stat strong{
+  display:block;
+  margin-top:7px;
+  font-size:14px;
+}
+
+/* SECTION */
+.section{
+  margin-top:22px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:11px;
+}
+
+.section-head h2{
+  font-size:16px;
+}
+
+.section-head span{
+  font-size:10px;
+  color:var(--green);
+}
+
+/* MINING */
+.mining-card{
+  padding:21px;
+  border-radius:23px;
+  background:linear-gradient(145deg,#0b2115,#08150d);
+  border:1px solid rgba(25,212,119,.14);
+  text-align:center;
+}
+
+.mining-ring{
+  width:145px;
+  height:145px;
+  margin:4px auto 17px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    conic-gradient(var(--green) 0deg,#0b3320 230deg,#16251d 230deg);
+  position:relative;
+  animation:spin 4s linear infinite;
+  box-shadow:0 0 35px rgba(25,212,119,.12);
+}
+
+.mining-ring:before{
+  content:"";
+  position:absolute;
+  width:117px;
+  height:117px;
+  border-radius:50%;
+  background:#09160e;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.mining-inner{
+  position:relative;
+  z-index:2;
+  animation:counterspin 4s linear infinite;
+}
+
+.pick{
+  font-size:27px;
+}
+
+.mining-status{
+  margin-top:5px;
+  color:var(--green);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.mining-amount{
+  font-size:24px;
+  font-weight:850;
+  margin-top:6px;
+}
+
+.mining-rate{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes counterspin{
+  to{transform:rotate(-360deg)}
+}
+
+.progress{
+  height:7px;
+  background:#15241b;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:18px;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:63%;
+  background:linear-gradient(90deg,#11b963,#6ff2ae);
+  border-radius:99px;
+}
+
+.mining-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
+}
+
+.mini{
+  background:#0d1d14;
+  padding:12px;
+  border-radius:13px;
+  text-align:left;
+}
+
+.mini small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.mini strong{
+  display:block;
+  font-size:12px;
+  margin-top:4px;
+}
+
+/* LIST */
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.row{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.row-left{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.row-icon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:#12261a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+}
+
+.row strong{
+  font-size:12px;
+}
+
+.row small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+.amount{
+  font-weight:800;
+  font-size:12px;
+}
+
+.plus{
+  color:var(--green);
+}
+
+.minus{
+  color:var(--danger);
+}
+
+.pending{
+  color:var(--gold);
+}
+
+/* PLANS */
+.plan{
+  padding:17px;
+  border-radius:18px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  margin-bottom:9px;
+}
+
+.plan.featured{
+  border-color:rgba(25,212,119,.32);
+  background:linear-gradient(145deg,#0d2417,#0b1810);
+}
+
+.plan-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.plan-name{
+  font-weight:800;
+  font-size:14px;
+}
+
+.tag{
+  padding:5px 8px;
+  border-radius:8px;
+  background:rgba(25,212,119,.1);
+  color:var(--green);
+  font-size:8px;
+  font-weight:800;
+}
+
+.plan-desc{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:8px;
+  line-height:1.5;
+}
+
+.plan-info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:13px;
+}
+
+.plan-info div{
+  background:#09150e;
+  padding:9px;
+  border-radius:10px;
+}
+
+.plan-info small{
+  color:var(--muted);
+  display:block;
+  font-size:8px;
+}
+
+.plan-info strong{
+  display:block;
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* FORMS */
+.form-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+}
+
+.field{
+  margin-bottom:13px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:7px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  height:46px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#07130c;
+  color:white;
+  outline:none;
+  padding:0 13px;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:rgba(25,212,119,.45);
+}
+
+.notice{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(216,179,90,.07);
+  border:1px solid rgba(216,179,90,.14);
+  color:#cbbf9d;
+  font-size:10px;
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+/* PROFILE */
+.profile{
+  text-align:center;
+  padding:24px 0 10px;
+}
+
+.avatar{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  margin:auto;
+  background:linear-gradient(145deg,#1bd979,#087a42);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#03130a;
+  font-size:28px;
+  font-weight:900;
+  border:4px solid #102419;
+  box-shadow:0 0 0 1px rgba(25,212,119,.25);
+}
+
+.profile h2{
+  font-size:20px;
+  margin-top:10px;
+}
+
+.profile p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+/* KYC */
+.kyc-status{
+  padding:16px;
+  border-radius:17px;
+  background:#0b2115;
+  border:1px solid rgba(25,212,119,.15);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.verified{
+  width:39px;
+  height:39px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(25,212,119,.1);
+  color:var(--green);
+}
+
+.kyc-status strong{
+  font-size:12px;
+}
+
+.kyc-status small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* LEGAL */
+.legal{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:18px;
+}
+
+.legal h3{
+  font-size:14px;
+  margin:18px 0 7px;
+}
+
+.legal h3:first-child{
+  margin-top:0;
+}
+
+.legal p,
+.legal li{
+  color:#aab8af;
+  font-size:10px;
+  line-height:1.7;
+}
+
+.legal ul{
+  padding-left:17px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:620px;
+  height:75px;
+  background:rgba(7,17,11,.94);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:100;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+.nav-btn{
+  background:none;
+  color:#68786e;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-size:9px;
+}
+
+.nav-btn .nav-icon{
+  font-size:19px;
+}
+
+.nav-btn.active{
+  color:var(--green);
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(5px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:620px;
+  background:#0b1810;
+  border:1px solid var(--border);
+  border-radius:25px 25px 0 0;
+  padding:22px 18px 28px;
+  animation:slideup .22s ease;
+}
+
+@keyframes slideup{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h3{
+  font-size:17px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#13231a;
+  color:white;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translateX(-50%) translateY(20px);
+  background:#15251b;
+  border:1px solid var(--border);
+  padding:11px 15px;
+  border-radius:12px;
+  font-size:11px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:380px){
+  .page{padding:14px}
+  .hero h1{font-size:25px}
+  .balance{font-size:27px}
+  .stat strong{font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="logo">V</div>
+    <div>
+      <strong>VESTRA</strong>
+      <small>DIGITAL FINANCE</small>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-btn" onclick="openPage('notifications')">
+      🔔
+      <span class="dot"></span>
+    </button>
+    <button class="icon-btn" onclick="openPage('profile')">👤</button>
+  </div>
+</header>
+
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page active">
+
+  <div class="hero">
+    <div class="eyebrow">PRIVATE DASHBOARD</div>
+    <h1>Welcome back,<br><span id="userName">Member</span></h1>
+    <p>Your financial activity and account information are available from one secure dashboard.</p>
+  </div>
+
+  <div class="balance-card">
+    <div class="balance-top">
+      <span class="label">AVAILABLE WALLET BALANCE</span>
+      <span class="currency">NGN</span>
+    </div>
+
+    <div class="balance" id="balance">₦0.00</div>
+
+    <div class="balance-actions">
+      <button class="btn btn-primary" onclick="openPage('deposit')">＋ Deposit</button>
+      <button class="btn btn-secondary" onclick="openPage('withdraw')">↑ Withdraw</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <small>TOTAL DEPOSIT</small>
+      <strong id="totalDeposit">₦0.00</strong>
+    </div>
+
+    <div class="stat">
+      <small>ACTIVE VALUE</small>
+      <strong id="activeValue">₦0.00</strong>
+    </div>
+
+    <div class="stat">
+      <small>TRANSACTIONS</small>
+      <strong id="transactionCount">0</strong>
+    </div>
+  </div>
+
+
+  <!-- MINING -->
+  <div class="section">
+    <div class="section-head">
+      <h2>Account Activity</h2>
+      <span>LIVE STATUS</span>
+    </div>
+
+    <div class="mining-card">
+
+      <div class="mining-ring">
+        <div class="mining-inner">
+          <div class="pick">◈</div>
+        </div>
+      </div>
+
+      <div class="mining-status">● ACTIVE</div>
+      <div class="mining-amount" id="activeAmount">₦0.00</div>
+      <div class="mining-rate">Current account activity</div>
+
+      <div class="progress">
+        <span></span>
+      </div>
+
+      <div class="mining-grid">
+        <div class="mini">
+          <small>STATUS</small>
+          <strong>Active</strong>
+        </div>
+
+        <div class="mini">
+          <small>ACCOUNT</small>
+          <strong id="accountId">VS-000001</strong>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- RECENT TRANSACTIONS -->
+  <div class="section">
+    <div class="section-head">
+      <h2>Recent Transactions</h2>
+      <span onclick="openPage('transactions')">VIEW ALL</span>
+    </div>
+
+    <div class="list" id="recentTransactions">
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">◌</div>
+          <div>
+            <strong>No transactions yet</strong>
+            <small>Your transactions will appear here.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ================= INVEST ================= -->
+<section id="invest" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">PORTFOLIO</div>
+    <h1>Investment<br>Opportunities</h1>
+    <p>Review available opportunities and their terms before committing funds.</p>
+  </div>
+
+  <div class="notice">
+    Investment availability, terms, risks and returns must be supplied by the platform's authorized backend. Do not treat figures shown here as guaranteed returns.
+  </div>
+
+  <div class="section">
+
+    <div class="plan featured">
+      <div class="plan-top">
+        <span class="plan-name">Growth Portfolio</span>
+        <span class="tag">AVAILABLE</span>
+      </div>
+
+      <p class="plan-desc">
+        A structured portfolio product. Final terms are provided by the platform backend before confirmation.
+      </p>
+
+      <div class="plan-info">
+        <div>
+          <small>MINIMUM</small>
+          <strong>₦—</strong>
+        </div>
+
+        <div>
+          <small>TERM</small>
+          <strong>—</strong>
+        </div>
+
+        <div>
+          <small>RETURN</small>
+          <strong>Variable</strong>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;margin-top:13px"
+        onclick="showToast('Investment terms will load from the secure backend.')">
+        View Terms
+      </button>
+    </div>
+
+
+    <div class="plan">
+      <div class="plan-top">
+        <span class="plan-name">Managed Portfolio</span>
+        <span class="tag">AVAILABLE</span>
+      </div>
+
+      <p class="plan-desc">
+        Portfolio management option subject to eligibility, verification and applicable terms.
+      </p>
+
+      <div class="plan-info">
+        <div>
+          <small>MINIMUM</small>
+          <strong>₦—</strong>
+        </div>
+
+        <div>
+          <small>TERM</small>
+          <strong>—</strong>
+        </div>
+
+        <div>
+          <small>RETURN</small>
+          <strong>Variable</strong>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" style="width:100%;margin-top:13px"
+        onclick="showToast('Full product details require backend connection.')">
+        View Terms
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= TRANSACTIONS ================= -->
+<section id="transactions" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">LEDGER</div>
+    <h1>Transaction<br>History</h1>
+    <p>A record of deposits, withdrawals and other account activity.</p>
+  </div>
+
+  <div class="section">
+    <div class="list" id="allTransactions">
+
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">◌</div>
+          <div>
+            <strong>No transactions</strong>
+            <small>Secure transaction records will appear here.</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ================= DEPOSIT ================= -->
+<section id="deposit" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">WALLET</div>
+    <h1>Deposit Funds</h1>
+    <p>Add funds to your account using an approved payment method.</p>
+  </div>
+
+  <div class="section">
+    <div class="form-card">
+
+      <div class="notice">
+        Real deposits require a secure payment provider and server-side transaction verification. This frontend does not directly receive or store card/bank credentials.
+      </div>
+
+      <div class="field">
+        <label>AMOUNT (NGN)</label>
+        <input id="depositAmount" type="number" min="1" placeholder="Enter amount">
+      </div>
+
+      <div class="field">
+        <label>PAYMENT METHOD</label>
+        <select id="depositMethod">
+          <option value="">Select payment method</option>
+          <option>Bank Transfer</option>
+          <option>Payment Gateway</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="requestDeposit()">
+        Continue Deposit
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ================= WITHDRAW ================= -->
+<section id="withdraw" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">WALLET</div>
+    <h1>Withdraw Funds</h1>
+    <p>Submit a withdrawal request to your verified payout account.</p>
+  </div>
+
+  <div class="section">
+    <div class="form-card">
+
+      <div class="notice">
+        Withdrawals must be processed by the secure backend after account verification and authorization. Never place payment credentials or secret keys in this HTML file.
+      </div>
+
+      <div class="field">
+        <label>AMOUNT (NGN)</label>
+        <input id="withdrawAmount" type="number" min="1" placeholder="Enter amount">
+      </div>
+
+      <div class="field">
+        <label>BANK</label>
+        <select>
+          <option>Select bank</option>
+          <option>Access Bank</option>
+          <option>GTBank</option>
+          <option>First Bank</option>
+          <option>UBA</option>
+          <option>Zenith Bank</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>ACCOUNT NUMBER</label>
+        <input type="text" inputmode="numeric" maxlength="10" placeholder="10-digit account number">
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="requestWithdrawal()">
+        Submit Withdrawal
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+<section id="profile" class="page">
+
+  <div class="profile">
+
+    <div class="avatar" id="avatar">M</div>
+
+    <h2 id="profileName">Member</h2>
+
+    <p id="profileUsername">@member</p>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="kyc-status">
+      <div class="verified">✓</div>
+      <div>
+        <strong>Identity Verification</strong>
+        <small id="kycText">Verification status will be supplied by the secure backend.</small>
+      </div>
+    </div>
+
+
+    <div class="form-card">
+
+      <div class="field">
+        <label>FULL NAME</label>
+        <input id="fullName" type="text" placeholder="Enter your legal name">
+      </div>
+
+      <div class="field">
+        <label>EMAIL ADDRESS</label>
+        <input id="email" type="email" placeholder="Enter email address">
+      </div>
+
+      <div class="field">
+        <label>PHONE NUMBER</label>
+        <input id="phone" type="tel" placeholder="Phone number">
+      </div>
+
+      <button class="btn btn-secondary" style="width:100%" onclick="showToast('Profile updates require secure backend authentication.')">
+        Update Profile
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-head">
+      <h2>KYC Verification</h2>
+    </div>
+
+    <div class="form-card">
+
+      <div class="notice">
+        For security, a NIN should never be stored in browser storage or directly inside this HTML file. A production platform should send identity information through an encrypted backend to an authorized verification service, with appropriate consent and data-protection controls.
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="showToast('Secure KYC verification will open after backend connection.')">
+        Begin Verification
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NOTIFICATIONS ================= -->
+<section id="notifications" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">ACCOUNT</div>
+    <h1>Notifications</h1>
+    <p>Important updates about your account and transactions.</p>
+  </div>
+
+  <div class="section">
+
+    <div class="list">
+
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">🔐</div>
+          <div>
+            <strong>Account security</strong>
+            <small>Secure authentication is required for account actions.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">💳</div>
+          <div>
+            <strong>Transaction updates</strong>
+            <small>Deposit and withdrawal notifications will appear here.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">📄</div>
+          <div>
+            <strong>Verification</strong>
+            <small>KYC status updates will be shown here.</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= LEGAL ================= -->
+<section id="legal" class="page">
+
+  <div class="hero">
+    <div class="eyebrow">LEGAL CENTER</div>
+    <h1>Legal &amp;<br>Compliance</h1>
+    <p>Important information governing the use of this platform.</p>
+  </div>
+
+  <div class="section">
+
+    <div class="legal">
+
+      <h3>Platform Declaration</h3>
+
+      <p>
+        This page is a platform information template. It is not an affidavit, certificate of registration, license, or notarized legal document.
+      </p>
+
+
+      <h3>Account Information</h3>
+
+      <p>
+        Users are responsible for providing accurate information during account registration and verification.
+      </p>
+
+
+      <h3>Identity Verification</h3>
+
+      <p>
+        Where identity verification is required, personal information must be processed through appropriate secure systems and only for legitimate, disclosed purposes.
+      </p>
+
+
+      <h3>Transactions</h3>
+
+      <p>
+        Deposits and withdrawals should only be processed through authorized payment infrastructure. Transaction records should be maintained by the secure server-side ledger.
+      </p>
+
+
+      <h3>Investment Risk</h3>
+
+      <p>
+        Investment products can involve financial risk. No return displayed by the frontend should be interpreted as guaranteed unless supported by the applicable product documentation and lawful terms.
+      </p>
+
+
+      <h3>User Responsibilities</h3>
+
+      <ul>
+        <li>Keep account credentials confidential.</li>
+        <li>Provide accurate verification information.</li>
+        <li>Review product terms before committing funds.</li>
+        <li>Report unauthorized activity promptly.</li>
+      </ul>
+
+
+      <h3>Privacy</h3>
+
+      <p>
+        Personal information should be collected, used, stored and deleted according to the platform's privacy policy and applicable data-protection requirements.
+      </p>
+
+
+      <h3>Official Legal Document</h3>
+
+      <p>
+        If the business requires an actual affidavit or sworn declaration, the final document should be prepared and executed through the appropriate legal/notarial process. This webpage is not a substitute for that process.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" data-page="home" onclick="openPage('home')">
+    <span class="nav-icon">⌂</span>
+    Home
+  </button>
+
+  <button class="nav-btn" data-page="invest" onclick="openPage('invest')">
+    <span class="nav-icon">◈</span>
+    Invest
+  </button>
+
+  <button class="nav-btn" data-page="transactions" onclick="openPage('transactions')">
+    <span class="nav-icon">▣</span>
+    History
+  </button>
+
+  <button class="nav-btn" data-page="profile" onclick="openPage('profile')">
+    <span class="nav-icon">♙</span>
+    Account
+  </button>
+
+  <button class="nav-btn" data-page="legal" onclick="openPage('legal')">
+    <span class="nav-icon">§</span>
+    Legal
+  </button>
+
+</nav>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h3 id="modalTitle">Information</h3>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   VESTRA FRONTEND
+   Backend-ready architecture
+   ===================================================== */
+
+/*
+  IMPORTANT:
+
+  This frontend intentionally does not perform real financial
+  transactions.
+
+  Production API endpoints can later be connected here:
+
+  POST /api/auth
+  GET  /api/account
+  GET  /api/wallet
+  POST /api/deposits
+  POST /api/withdrawals
+  GET  /api/transactions
+  GET  /api/investments
+  POST /api/kyc
+  GET  /api/notifications
+
+  Never put payment secret keys, bank credentials,
+  database passwords or admin secrets inside this file.
+*/
+
+
+const state = {
+
+  user:{
+    name:"Member",
+    username:"@member",
+    accountId:"VS-000001"
+  },
+
+  wallet:{
+    balance:0,
+    totalDeposit:0,
+    activeValue:0
+  },
+
+  transactions:[]
+
+};
+
+
+/* NAVIGATION */
+
+function openPage(page){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
+
+  const target=document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.remove("active");
+
+    if(btn.dataset.page===page){
+      btn.classList.add("active");
+    }
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* TOAST */
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2800);
+}
+
+
+/* MODAL */
+
+function openModal(title,content){
+
+  document.getElementById("modalTitle").textContent=title;
+  document.getElementById("modalContent").innerHTML=content;
+
+  document.getElementById("modal").classList.add("show");
+}
+
+
+function closeModal(){
+
+  document.getElementById("modal").classList.remove("show");
+}
+
+
+/* DEPOSIT */
+
+function requestDeposit(){
+
+  const amount=document.getElementById("depositAmount").value;
+  const method=document.getElementById("depositMethod").value;
+
+  if(!amount || Number(amount)<=0){
+
+    showToast("Enter a valid deposit amount.");
+    return;
+
+  }
+
+  if(!method){
+
+    showToast("Select a payment method.");
+    return;
+
+  }
+
+  openModal(
+    "Deposit Request",
+    `
+      <div class="notice">
+        Your deposit request is ready for secure backend processing.
+      </div>
+
+      <div class="mini" style="margin-bottom:12px">
+        <small>AMOUNT</small>
+        <strong>₦${Number(amount).toLocaleString()}</strong>
+      </div>
+
+      <div class="mini" style="margin-bottom:15px">
+        <small>METHOD</small>
+        <strong>${method}</strong>
+      </div>
+
+      <button class="btn btn-primary"
+        style="width:100%"
+        onclick="closeModal();showToast('Connect the payment API to process this request.')">
+        Continue
+      </button>
+    `
+  );
+}
+
+
+/* WITHDRAW */
+
+function requestWithdrawal(){
+
+  const amount=document.getElementById("withdrawAmount").value;
+
+  if(!amount || Number(amount)<=0){
+
+    showToast("Enter a valid withdrawal amount.");
+    return;
+
+  }
+
+  openModal(
+    "Withdrawal Request",
+    `
+      <div class="notice">
+        Withdrawal requests should be verified and processed by the secure backend.
+      </div>
+
+      <div class="mini" style="margin-bottom:15px">
+        <small>REQUESTED AMOUNT</small>
+        <strong>₦${Number(amount).toLocaleString()}</strong>
+      </div>
+
+      <button class="btn btn-primary"
+        style="width:100%"
+        onclick="closeModal();showToast('Connect the secure withdrawal API to process this request.')">
+        Submit Request
+      </button>
+    `
+  );
+}
+
+
+/* ACCOUNT */
+
+function renderAccount(){
+
+  document.getElementById("userName").textContent=state.user.name;
+  document.getElementById("profileName").textContent=state.user.name;
+  document.getElementById("profileUsername").textContent=state.user.username;
+  document.getElementById("accountId").textContent=state.user.accountId;
+
+  document.getElementById("avatar").textContent=
+    state.user.name.charAt(0).toUpperCase();
+
+}
+
+
+/* WALLET */
+
+function renderWallet(){
+
+  document.getElementById("balance").textContent=
+    money(state.wallet.balance);
+
+  document.getElementById("totalDeposit").textContent=
+    money(state.wallet.totalDeposit);
+
+  document.getElementById("activeValue").textContent=
+    money(state.wallet.activeValue);
+
+  document.getElementById("activeAmount").textContent=
+    money(state.wallet.activeValue);
+
+  document.getElementById("transactionCount").textContent=
+    state.transactions.length;
+
+}
+
+
+/* MONEY */
+
+function money(value){
+
+  return "₦"+Number(value||0).toLocaleString(
+    "en-NG",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    }
+  );
+
+}
+
+
+/* TRANSACTIONS */
+
+function renderTransactions(){
+
+  const recent=document.getElementById("recentTransactions");
+  const all=document.getElementById("allTransactions");
+
+  if(state.transactions.length===0){
+
+    const empty=`
+      <div class="row">
+        <div class="row-left">
+          <div class="row-icon">◌</div>
+          <div>
+            <strong>No transactions yet</strong>
+            <small>Your secure transaction records will appear here.</small>
+          </div>
+        </div>
+      </div>
+    `;
+
+    recent.innerHTML=empty;
+    all.innerHTML=empty;
+
+    return;
+
+  }
+
+  const html=state.transactions.map(tx=>`
+
+    <div class="row">
+
+      <div class="row-left">
+
+        <div class="row-icon">
+          ${tx.type==="deposit"?"↓":"↑"}
+        </div>
+
+        <div>
+          <strong>${tx.title}</strong>
+          <small>${tx.date}</small>
+        </div>
+
+      </div>
+
+      <div class="amount ${tx.type==="deposit"?"plus":"minus"}">
+        ${tx.type==="deposit"?"+":"-"}${money(tx.amount)}
+      </div>
+
+    </div>
+
+  `).join("");
+
+  recent.innerHTML=html;
+  all.innerHTML=html;
+
+}
+
+
+/* INITIALIZE */
+
+function init(){
+
+  renderAccount();
+  renderWallet();
+  renderTransactions();
+
+}
+
+
+init();
+
+
+/* CLOSE MODAL ON BACKGROUND CLICK */
+
+document.getElementById("modal").addEventListener("click",function(e){
+
+  if(e.target===this){
+    closeModal();
+  }
+
+});
+
+
+/*
+  TELEGRAM MINI APP SUPPORT
+
+  When opened inside Telegram, this section safely initializes
+  the Telegram WebApp environment if available.
+*/
+
+if(window.Telegram && Telegram.WebApp){
+
+  Telegram.WebApp.ready();
+
+  Telegram.WebApp.expand();
+
+  if(Telegram.WebApp.setHeaderColor){
+    Telegram.WebApp.setHeaderColor("#06100b");
+  }
+
+  if(Telegram.WebApp.setBackgroundColor){
+    Telegram.WebApp.setBackgroundColor("#06100b");
+  }
+
+}
+
+
+/*
+  BACKEND CONNECTION EXAMPLE
+
+  Later, authenticated account data can be loaded using:
+
+  fetch("/api/account",{
+    headers:{
+      "Authorization":"Bearer YOUR_SESSION_TOKEN"
+    }
+  })
+  .then(r=>r.json())
+  .then(data=>{
+      // Update state from verified server data
+  });
+
+  Do NOT put secret API keys here.
+*/
+
+</script>
+
+</body>
+  </html>
